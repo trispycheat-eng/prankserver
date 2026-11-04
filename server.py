@@ -16,7 +16,8 @@ async def websocket_endpoint(websocket: WebSocket, role: str, code: str):
                 if code in admins:
                     await admins[code].send_text(data)
         except WebSocketDisconnect:
-            if code in clients: del clients[code]
+            if code in clients: 
+                del clients[code]
     elif role == "admin":
         admins[code] = websocket
         try:
@@ -25,7 +26,8 @@ async def websocket_endpoint(websocket: WebSocket, role: str, code: str):
                 if code in clients:
                     await clients[code].send_text(data)
         except WebSocketDisconnect:
-            if code in admins: del admins[code]
+            if code in admins: 
+                del admins[code]
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=10000)
